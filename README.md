@@ -17,7 +17,7 @@ Or clone the repository, build the package and install it:
 ```
 git clone https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom.git
 R CMD build shinylocuszoom
-R CMD INSTALL shinylocuszoom_v0.0.1.tar.gz # Change version according to the last version
+R CMD INSTALL shinylocuszoom_v1.0.0.tar.gz # Change version according to the last version
 ```
 ----- 
 
