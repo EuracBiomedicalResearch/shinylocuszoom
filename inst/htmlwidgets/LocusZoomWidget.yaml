@@ -1,0 +1,12 @@
+# (uncomment to add a dependency)
+ dependencies:
+  - name: locuszoom
+    version: 0.14.0
+    src: htmlwidgets/lib
+    script:
+    - d3.js
+#    - q.js
+    - locuszoom.app.min.js
+    # - locuszoom.vendor.min.js
+    # - ./ext/lz-dynamic-urls.min.js
+    stylesheet: locuszoom.css
