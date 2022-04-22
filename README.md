@@ -1,92 +1,142 @@
 # shinylocuszoom
+-----
 
+shinylocuszoom is a package based on [htmlwidgets](https://www.htmlwidgets.org/) to integrate LocusZoom plots into a shiny app or Rmd notebook.
 
+It is based on the []LocusZoom.js](https://statgen.github.io/locuszoom) library.
 
-## Getting started
+## Installation 
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Using `devtools` install the package with:
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom.git
-git branch -M main
-git push -uf origin main
+```r
+devtools::install_url("https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom.git")
 ```
 
-## Integrate with your tools
+Or clone the repository, build the package and install it:
 
-- [ ] [Set up project integrations](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+git clone https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom.git
+R CMD build shinylocuszoom
+R CMD INSTALL shinylocuszoom_v0.0.1.tar.gz # Change version according to the last version
+```
+----- 
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Once installed you can test if the package works correctly with the following commands within `R`
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Load the package and get a JSON file
+```r
+library(shinylocuszoom)
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+# Get a json file included in the package already formatted
+jsonfile <- system.file("data/td2t_10_114550452-115067678.json", package="shinylocuszoom")
+jsondata <- fromJSON(file=jsonfile)
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Within `Rstudio` a LocusZoom plot appears in the Window panel, otherwise using standard `R` a new page in
+a web browser will pop-up with the LocusZoom plot.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```r
+LocusZoomWidget(
+ jsondata[["data"]],
+ chr = 10,
+ bpstart = 114550452,
+ bpend = 115067678,
+ genome_build = "GRCh37",
+ main_title = "TD2 association")
+```
+-----
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### Integration with `shinyapp`
 
-## License
-For open source projects, say how it is licensed.
+In the `ui.R` file or in the `ui` variable in the `app.R` file.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```r
+ui <- fluidPage(
+
+# Application title
+titlePanel("Locus zoom test"),
+
+sidebarLayout(
+  # Sidebar 
+  sidebarPanel(
+
+    # Chromosome selection
+    selectInput(
+      inputId = "chr",
+      label = "Chromosome",
+      choices = 1:22,
+      selected = 1
+    ),
+
+    # Interval selection in BP
+    numericInput(
+      inputId = "bpstart",
+      label = "Bp from",
+      value = 0
+    ),
+    numericInput(
+      inputId = "bpend",
+      label = "Bp to",
+      value = 0
+     )
+  ),
+
+  mainPanel(
+     # Rendering of the LocusZoom Plot
+     LocusZoomWidgetOutput("locuszoom")
+   )
+ )
+)
+
+```
+
+In the `server.R` file or in the `server` variable in the `app.R` file.
+
+```r
+
+get_mydata <- function(chr, bpstart, bpend){
+   # Write your own code to read a summary
+   # statistic file and format as described
+   # in the manual of the function 
+   # LocusZoomWidget
+}
+
+output$locuszoom <- renderLocusZoomWidget({
+
+  x <- get_mydata(
+    chr = input$chr,
+    bpstart = input$bpstart,
+    bpend = input$bpend)
+
+  # Using JSON blobs
+  LocusZoomWidget(x,
+                  chr = input$chr,
+                  bpstart = input$bpstart,
+                  bpend = input$bpend,
+  )
+
+  # Using API url
+  url <- "http://myapi.com/api/v1/sumstat"
+  LocusZoomWidget(url,
+                  chr = input$chr,
+                  bpstart = input$bpstart,
+                  bpend = input$bpend,
+  )
+})
+
+```
+
+For further feature and how to integrate with shiny see the full example in the manual of the R function.
+See also
+
+```r
+?LocusZoomWidget
+```
+
+# Authors 
+[Michele Filosi](mailto:michele.filosi@eurac.edu)
+
+
