@@ -143,6 +143,7 @@ LocusZoomWidget <- function(
   bpend,
   genome_build = "GRCh37",
   main_title="Custom Locuszoom",
+  bed=NULL,
   width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
@@ -162,7 +163,10 @@ LocusZoomWidget <- function(
     mylist <- list(data=x, lastPage=NULL)
     params[["url"]] <- NULL
     params[["blob"]] <- toJSON(mylist)
-
+    if (!is.null(bed)){
+      interval_list <- list(data=bed, lastPage=NULL)
+      params[["bed"]] <- toJSON(interval_list)
+    }
   } else if (is.character(x)) {
     params[["url"]] <- x
     params[["blob"]] <- NULL

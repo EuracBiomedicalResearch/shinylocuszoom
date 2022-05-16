@@ -7,6 +7,5 @@
     - d3.js
 #    - q.js
     - locuszoom.app.min.js
-    # - locuszoom.vendor.min.js
-    # - ./ext/lz-dynamic-urls.min.js
+    - ./ext/lz-intervals-track.min.js
     stylesheet: locuszoom.css

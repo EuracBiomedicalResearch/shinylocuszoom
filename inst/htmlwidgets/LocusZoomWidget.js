@@ -38,6 +38,13 @@ HTMLWidgets.widget({
         // TODO: code to render the widget, e.g.
         const mybuild = x.build // 'GRCh37' or 'GRCh38'
         const apiBase = 'https://portaldev.sph.umich.edu/api/v1/';
+        var plttype;
+        if (x.bed == null){
+          plttype = 'standard_association';
+        } else {
+          plttype = 'interval_association';
+        }
+        console.log(x.bed);
         // const apiloc = 'data/';
         // const apiloc = window.location.origin + window.location.pathname.substr(0, window.location.pathname.lastIndexOf("/") + 1) + "data/";
         // var apiloc = window.location.origin + window.location.pathname.substr(0, window.location.pathname.lastIndexOf("/") + 1) + x.json;
@@ -50,6 +57,7 @@ HTMLWidgets.widget({
           // .add('assoc', ['CustomAssociation', {url: apiloc}])
           // .add('assoc', ['CustomStatic', {data: myblob, source:null, build: mybuild}])
           // .add("assoc", ["AssociationLZ", {url: apiBase + "statistic/single/", source: 45 }])
+          // .add('intervals', ["IntervalLZ", { url: apiBase + "annotation/intervals/results/", source: 19 }])
           .add('ld', ['LDServer', { url: 'https://portaldev.sph.umich.edu/ld/', source: '1000G', population: 'ALL', build: mybuild }])
           .add('recomb', ['RecombLZ', { url: apiBase + 'annotation/recomb/results/', build: mybuild }])
           .add('gene', ['GeneLZ', { url: apiBase + 'annotation/genes/', build: mybuild }])
@@ -58,15 +66,20 @@ HTMLWidgets.widget({
         if (x.url){
           const apiloc = x.url;
           data_sources.add('assoc', ['CustomAssociation', {url: apiloc, build: mybuild}]);
-          console.log("APIIII");
+          if (plttype == 'interval_association'){
+            data_sources.add('intervals', ["IntervalLZ", { url: apiBase + "annotation/intervals/results/", source: 19 }]);
+          }
         } else {
           data_sources.add('assoc', ['CustomStatic', {data: x.blob, source:null, build: mybuild}]);
+          if (plttype == 'interval_association'){
+            data_sources.add('intervals', ['CustomStatic', {data: x.bed, source:null, build: mybuild}]);
+          }
           console.log("BLOBS");
         }
 
         var layout = LocusZoom.Layouts.get(
           'plot',
-          'standard_association',
+          plttype,
           {
             // state: { genome_build: mybuild, chr: 16, start: 2088708, end: 2135898},
             state: { genome_build: mybuild, chr: x.chr, start: x.bpstart, end: x.bpend},
@@ -88,6 +101,7 @@ HTMLWidgets.widget({
 
         // Modify the tooltips for PheWAS result data layer points to contain more data. The fields in this sample
         //   tooltip are specific to the LZ-Portal API, and are not guaranteed to be in other PheWAS datasources.
+
         LocusZoom.Layouts.mutate_attrs(layout, '$..data_layers[?(@.tag === "association")].tooltip', LocusZoom.Layouts.get('tooltip', 'standard_association_with_label'));
         LocusZoom.Layouts.mutate_attrs(layout, '$..data_layers[?(@.tag === "association")].label', {
           text: '{{assoc:variant}}',
