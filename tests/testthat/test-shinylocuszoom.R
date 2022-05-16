@@ -31,6 +31,6 @@ test_that("Check defined results", {
     bpstart = 114550452,
     bpend = 115067678,
     genome_build = "GRCh37",
-    main_title = "TD2 association", bed=NULL)
+    main_title = "TD2 association", bed=mybed)
   expect_known_hash(res, hash = "0be008578c")
 })
