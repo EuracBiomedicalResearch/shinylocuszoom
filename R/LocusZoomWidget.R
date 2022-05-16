@@ -43,6 +43,7 @@ require(rjson)
 #' @param genome_build character specifying the genome build of the input data.
 #' Should be one of "GRCh37" (default) or "GRCh38" **case-sensitive**. The genome build version
 #' is used to merge with LD, recombination and gene position data.
+#' @param bed data.frame, default is NULL, if provided an interval custom annotation track is added to the plot
 #' @param main_title character, title of the locuszoom plot
 #' @param elementId character, element identifier where the plot should be inserted, do not change it, it will be handled by Rmd or shiny
 #'
@@ -55,6 +56,9 @@ require(rjson)
 #'
 #' **NB** Provide the API url without the trailing slash.
 #'
+#' Bed-like data.frame provided through the `bed` parameter should have a minimun of 4 columns named
+#' exactly and ordered as follows:
+#' `chromosome`, `start`, `end` and `state_name`
 #' @return HTLM/Javascript to render in a shinyapp
 #'
 #' @examples
@@ -143,6 +147,7 @@ LocusZoomWidget <- function(
   bpend,
   genome_build = "GRCh37",
   main_title="Custom Locuszoom",
+  bed=NULL,
   width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
@@ -162,7 +167,10 @@ LocusZoomWidget <- function(
     mylist <- list(data=x, lastPage=NULL)
     params[["url"]] <- NULL
     params[["blob"]] <- toJSON(mylist)
-
+    if (!is.null(bed)){
+      interval_list <- list(data=bed, lastPage=NULL)
+      params[["bed"]] <- toJSON(interval_list)
+    }
   } else if (is.character(x)) {
     params[["url"]] <- x
     params[["blob"]] <- NULL

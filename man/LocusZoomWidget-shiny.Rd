@@ -14,6 +14,7 @@ LocusZoomWidget(
   bpend,
   genome_build = "GRCh37",
   main_title = "Custom Locuszoom",
+  bed = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -68,6 +69,8 @@ is used to merge with LD, recombination and gene position data.}
 
 \item{main_title}{character, title of the locuszoom plot}
 
+\item{bed}{data.frame, default is NULL, if provided an interval custom annotation track is added to the plot}
+
 \item{width, height}{Must be a valid CSS unit (like \code{'100\%'},
 \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 string and have \code{'px'} appended.}
@@ -102,6 +105,10 @@ should work with the following command:
 \verb{curl -G  http://myapi.com/api/v1/?chr=1&start=2088708&end=2135898}
 
 \strong{NB} Provide the API url without the trailing slash.
+
+Bed-like data.frame provided through the \code{bed} parameter should have a minimun of 4 columns named
+exactly and ordered as follows:
+\code{chromosome}, \code{start}, \code{end} and \code{state_name}
 }
 \examples{
 
