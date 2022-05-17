@@ -66,6 +66,8 @@ require(rjson)
 #' \dontrun{
 #' jsonfile <- system.file("data/td2t_10_114550452-115067678.json", package="shinylocuszoom")
 #' jsondata <- fromJSON(file=jsonfile)
+#' intervfile <- system.file("data/interval_td2t_10_114550452-115067678.json", package="shinylocuszoom")
+#' intervdata <- fromJSON(file=intervfile)
 #'
 #' LocusZoomWidget(
 #'  jsondata[["data"]],
@@ -73,7 +75,8 @@ require(rjson)
 #'  bpstart = 114550452,
 #'  bpend = 115067678,
 #'  genome_build = "GRCh37",
-#'  main_title = "TD2 association")
+#'  main_title = "TD2 association",
+#'  bed=intervdata[["data"]])
 #'
 #'
 #' # In the server.R:
