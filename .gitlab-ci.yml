@@ -45,6 +45,7 @@ unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
     - echo "Running unit tests... This will take about 60 seconds."
+    - R -e 'devtools::install_deps(package=Sys.getenv("CI_PROJECT_DIR"), dep = T, lib = Sys.getenv("R_LIBS_USER"))'
     - R CMD check *.tar.gz --no-build-vignettes --no-manual
     - R -e 'devtools::test()'
     - echo "Code coverage is 90%"
