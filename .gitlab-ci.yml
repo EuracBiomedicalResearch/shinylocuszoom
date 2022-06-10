@@ -34,12 +34,12 @@ build-job:       # This job runs in the build stage, which runs first.
       - R -e 'devtools::check(check_dir = Sys.getenv("CHECK_DIR"))'
       # - R -e 'if (length(devtools::check_failures(path = Sys.getenv("BUILD_LOGS_DIR"), note = FALSE)) > 0) stop()'
       - R CMD build . --no-build-vignettes --no-manual
+  artifacts:
+    paths:
+      - ./*.tar.gz
   cache:
     paths:
     - $R_LIBS_USER
-  artifacts:
-    paths:
-      - *.tar.gz
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
