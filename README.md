@@ -1,6 +1,6 @@
 # shinylocuszoom
 
-[![pipeline](https://gitlab.gm.eurac.edu/%{project_path}/badges/%{default_branch}/pipeline.svg)](https://gitlab.gm.eurac.edu/%{project_path}/project/pipelines/latest)
+[![pipeline](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/badges/main/pipeline.svg)](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/pipelines/latest)
 
 shinylocuszoom is a package based on [htmlwidgets](https://www.htmlwidgets.org/) to integrate LocusZoom plots into a shiny app or Rmd notebook.
 
