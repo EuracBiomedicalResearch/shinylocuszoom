@@ -23,7 +23,7 @@ stages:          # List of stages for jobs, and their order of execution
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
-    - R -e 'install.packages(c("dplyr", "purrr", "testthat"))
+    - R -e 'install.packages(c("dplyr", "purrr", "testthat", "devtools"))
     - R CMD build . --no-build-vignettes --no-manual
 
 unit-test-job:   # This job runs in the test stage.
