@@ -1,3 +1,5 @@
+[![R build status](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/workflows/R-CMD-check/badge.svg)](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/actions?workflow=R-CMD-check)
+
 # shinylocuszoom
 
 [![pipeline](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/badges/main/pipeline.svg)](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/pipelines/latest)
