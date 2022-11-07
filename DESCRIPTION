@@ -1,11 +1,11 @@
 Package: shinylocuszoom
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Locus Zoom for Rmd and Shinyapp
 Version: 1.0.1
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: M. Filosi
+Maintainer: Michele Filosi <michele.filosi@gmail.com>
+Description: Embed a LocusZoom plots iin shinyApp or Rmd in batch mode without 
+  loading data to any external source. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
