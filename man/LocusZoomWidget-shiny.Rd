@@ -5,7 +5,7 @@
 \alias{LocusZoomWidget-shiny}
 \alias{LocusZoomWidgetOutput}
 \alias{renderLocusZoomWidget}
-\title{Create a locusZoom Plot}
+\title{Create an interactive locusZoom Plot}
 \usage{
 LocusZoomWidget(
   x,
@@ -87,11 +87,12 @@ string and have \code{'px'} appended.}
 is useful if you want to save an expression in a variable.}
 }
 \value{
-HTLM/Javascript to render in a shinyapp
+HTLM/Javascript to render in a shinyapp or any Rmd html-based notebook.
 }
 \description{
 This function implements a HTML widget for the integration of LocusZoom plots
-into a shinyapp. It can work either with a JSON blob input or a custom REST API server
+into a shinyapp or Rmd document. It can work either with a JSON blob input or
+a custom REST API server.
 
 Output and render functions for using LocusZoomWidget within Shiny
 applications and interactive Rmd documents.
@@ -106,6 +107,12 @@ should work with the following command:
 
 \strong{NB} Provide the API url without the trailing slash.
 
+\strong{NB} This package is meant to be used in batch, but it makes some API
+requests on external servers. If multiple instance of the package run
+simultaneously or if multiple plots should be produced within a for cycle,
+please consider inserting a \code{sleep} timeout between requests in order to
+avoid server faults.
+
 Bed-like data.frame provided through the \code{bed} parameter should have a minimun of 4 columns named
 exactly and ordered as follows:
 \code{chromosome}, \code{start}, \code{end} and \code{state_name}
@@ -113,8 +120,10 @@ exactly and ordered as follows:
 \examples{
 
 \dontrun{
-jsonfile <- system.file("data/td2t_10_114550452-115067678.json", package="shinylocuszoom")
+jsonfile <- system.file("extdata/td2t_10_114550452-115067678.json", package="shinylocuszoom")
 jsondata <- fromJSON(file=jsonfile)
+intervfile <- system.file("data/interval_td2t_10_114550452-115067678.json", package="shinylocuszoom")
+intervdata <- fromJSON(file=intervfile)
 
 LocusZoomWidget(
  jsondata[["data"]],
@@ -122,7 +131,8 @@ LocusZoomWidget(
  bpstart = 114550452,
  bpend = 115067678,
  genome_build = "GRCh37",
- main_title = "TD2 association")
+ main_title = "TD2 association",
+ bed=intervdata[["data"]])
 
 
 # In the server.R:

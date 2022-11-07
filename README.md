@@ -1,5 +1,8 @@
 # shinylocuszoom
 
+[![R build status](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/workflows/check-standard.yaml/badge.svg?branch=main)](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/workflows/check-standard.yaml/badge.svg?branch=main)
+
+
 shinylocuszoom is a package based on [htmlwidgets](https://www.htmlwidgets.org/) to integrate LocusZoom plots into a shiny app or Rmd notebook.
 
 It is based on the [LocusZoom.js](https://statgen.github.io/locuszoom) library.
