@@ -9,18 +9,18 @@ It is based on the [LocusZoom.js](https://statgen.github.io/locuszoom) library.
 
 ## Installation 
 
-Using `devtools` install the package with:
+Using `devtools` to install the package (**recommended**)
 
 ```r
-devtools::install_url("https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom.git")
+devtools::install_url("https://github.com/EuracBiomedicalResearch/shinylocuszoom.git")
 ```
 
 Or clone the repository, build the package and install it:
 
 ```
-git clone https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom.git
+git clone https://github.com/EuracBiomedicalResearch/shinylocuszoom.git
 R CMD build shinylocuszoom
-R CMD INSTALL shinylocuszoom_v1.0.0.tar.gz # Change version according to the last version
+R CMD INSTALL shinylocuszoom_<latest>.tar.gz # Change version according to the last version
 ```
 ----- 
 
