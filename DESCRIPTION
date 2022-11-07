@@ -9,6 +9,6 @@ Description: Embed a LocusZoom plots iin shinyApp or Rmd in batch mode without
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.4.3), htmlwidgets, rjson
+Depends: R (>= 4.1.0), htmlwidgets, rjson
 RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
