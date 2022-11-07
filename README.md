@@ -1,8 +1,7 @@
-[![R build status](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/workflows/R-CMD-check/badge.svg)](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/actions?workflow=R-CMD-check)
-
 # shinylocuszoom
 
-[![pipeline](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/badges/main/pipeline.svg)](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/pipelines/latest)
+[![R build status](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/workflows/check-standard.yaml/badge.svg?branch=main)](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/workflows/check-standard.yaml/badge.svg?branch=main)
+
 
 shinylocuszoom is a package based on [htmlwidgets](https://www.htmlwidgets.org/) to integrate LocusZoom plots into a shiny app or Rmd notebook.
 
