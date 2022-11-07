@@ -7,10 +7,21 @@ get_data <- function(x){
   return(mydata[["data"]])
 }
 
+
+process_bed <- function(x){
+  # x <- "~/work/test_locus_zoom/KG_TM_38_mask_chr10_114550452-115067678.bed"
+  mybed <- read.delim(x, header=FALSE, stringsAsFactors = FALSE) %>%
+    rename(chromosome=V1, start=V2, end=V3, state_name=V4) %>%
+    mutate(
+      id=1,
+      public_id='',
+      state_id=1)
+  return(mybed)
+
+}
+
 test_that("Check defined results", {
-  f <- system.file("inst/extdata/td2t_10_114550452-115067678.json", package="shinylocuszoom")
-  mybed.file <- system.file("inst/extdata/interval_td2t_10_114550452-115067678.json", package="shinylocuszoom")
-  mybed <- get_data(x=mybed.file)
+  f <- system.file("extdata/td2t_10_114550452-115067678.json", package="shinylocuszoom")
   mydata <- get_data(x=f)
   res <- LocusZoomWidget(
     mydata,
@@ -18,6 +29,7 @@ test_that("Check defined results", {
     bpstart = 114550452,
     bpend = 115067678,
     genome_build = "GRCh37",
-    main_title = "TD2 association", bed=mybed)
-  expect_known_hash(res, hash = "f748d13162")
+    main_title = "TD2 association")
+  expect_known_hash(res, hash = "0be008578c")
+
 })

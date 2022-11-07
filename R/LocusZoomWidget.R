@@ -1,9 +1,10 @@
 require(rjson)
 
-#' Create a locusZoom Plot
+#' Create an interactive locusZoom Plot
 #'
 #' This function implements a HTML widget for the integration of LocusZoom plots
-#' into a shinyapp. It can work either with a JSON blob input or a custom REST API server
+#' into a shinyapp or Rmd document. It can work either with a JSON blob input or
+#' a custom REST API server.
 #'
 #'
 #' @param x  could be either a `character` or `data.frame` or `tibble` object that
@@ -55,16 +56,22 @@ require(rjson)
 #' `curl -G  http://myapi.com/api/v1/?chr=1&start=2088708&end=2135898`
 #'
 #' **NB** Provide the API url without the trailing slash.
+#' 
+#' **NB** This package is meant to be used in batch, but it makes some API 
+#' requests on external servers. If multiple instance of the package run 
+#' simultaneously or if multiple plots should be produced within a for cycle, 
+#' please consider inserting a `sleep` timeout between requests in order to 
+#' avoid server faults.
 #'
 #' Bed-like data.frame provided through the `bed` parameter should have a minimun of 4 columns named
 #' exactly and ordered as follows:
 #' `chromosome`, `start`, `end` and `state_name`
-#' @return HTLM/Javascript to render in a shinyapp
+#' @return HTLM/Javascript to render in a shinyapp or any Rmd html-based notebook.
 #'
 #' @examples
 #'
 #' \dontrun{
-#' jsonfile <- system.file("data/td2t_10_114550452-115067678.json", package="shinylocuszoom")
+#' jsonfile <- system.file("extdata/td2t_10_114550452-115067678.json", package="shinylocuszoom")
 #' jsondata <- fromJSON(file=jsonfile)
 #' intervfile <- system.file("data/interval_td2t_10_114550452-115067678.json", package="shinylocuszoom")
 #' intervdata <- fromJSON(file=intervfile)
@@ -153,11 +160,6 @@ LocusZoomWidget <- function(
   bed=NULL,
   width = NULL, height = NULL, elementId = NULL) {
 
-  # forward options using x
-  # x = list(
-  #   message = message
-  # )
-
   #---- Prepare list of input parameters ----
   params <- list()
   params[["chr"]] <- chr
@@ -180,11 +182,6 @@ LocusZoomWidget <- function(
   } else {
     stop("Please provide a valid data.frame or valid url")
   }
-
-  # x[["blob"]] <- get_json("data/chip_b38.epacts_chr_16_2088708-2135898.json")
-  # chr <- 16
-  # bppstart <- 2088708
-  # bpend <- 2135898
 
   # create widget
   htmlwidgets::createWidget(

@@ -5,31 +5,39 @@ HTMLWidgets.widget({
   type: 'output',
 
   factory: function(el, width, height) {
-
-    // TODO: define shared variables for this instance
-    const AssociationLZ = LocusZoom.Adapters.get('AssociationLZ');
-    class CustomAssociation extends AssociationLZ {
-      _getURL(request_options) {
-        // Every adapter receives the info from plot.state, plus any additional request options calculated/added in the function `_buildRequestOptions`
-        // The inputs to the function can be used to influence what query is constructed. Eg, since the current view region is stored in `plot.state`:
-        const {chr, start, end} = request_options;
-        // Fetch the region of interest from a hypothetical REST API that uses query parameters to define the region query, for a given study URL such as `data.example/gwas/<id>/?chr=_&start=_&end=_`
-        return `${this._url}/?chr=${encodeURIComponent(chr)}&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`
-          }
-      };
-    const BaseUMAdapter = LocusZoom.Adapters.get('BaseUMAdapter');
-    class CustomStatic extends BaseUMAdapter {
-      constructor(config = {}){
-        super(config)
-      }
-      _performRequest(options){
-          return Promise.resolve(this._config.data);
-      }
+    try{
+      var a = LocusZoom.Adapters.get('CustomAssociation');
+    } catch (Error) {
+      // TODO: define shared variables for this instance
+      const AssociationLZ = LocusZoom.Adapters.get('AssociationLZ');
+      class CustomAssociation extends AssociationLZ {
+        _getURL(request_options) {
+          // Every adapter receives the info from plot.state, plus any additional request options calculated/added in the function `_buildRequestOptions`
+          // The inputs to the function can be used to influence what query is constructed. Eg, since the current view region is stored in `plot.state`:
+          const {chr, start, end} = request_options;
+          // Fetch the region of interest from a hypothetical REST API that uses query parameters to define the region query, for a given study URL such as `data.example/gwas/<id>/?chr=_&start=_&end=_`
+          return `${this._url}/?chr=${encodeURIComponent(chr)}&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`
+            }
+        };
+        LocusZoom.Adapters.add('CustomAssociation', CustomAssociation);
     }
 
-    LocusZoom.Adapters.add('CustomAssociation', CustomAssociation);
-    LocusZoom.Adapters.add('CustomStatic', CustomStatic);
+    try {
+      var a = LocusZoom.Adapters.get('CustomStatic');
+    } catch(Error){
+      const BaseUMAdapter = LocusZoom.Adapters.get('BaseUMAdapter');
+      class CustomStatic extends BaseUMAdapter {
+        constructor(config = {}){
+          super(config)
+        }
+        _performRequest(options){
+            return Promise.resolve(this._config.data);
+        }
+      }
 
+
+      LocusZoom.Adapters.add('CustomStatic', CustomStatic);
+    }
     return {
 
       renderValue: function(x) {

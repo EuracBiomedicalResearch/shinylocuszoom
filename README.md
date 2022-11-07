@@ -1,6 +1,7 @@
 # shinylocuszoom
 
-[![pipeline](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/badges/main/pipeline.svg)](https://gitlab.gm.eurac.edu/mfilosi/shinylocuszoom/pipelines/latest)
+[![R build status](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/workflows/check-standard.yaml/badge.svg?branch=main)](https://github.com/EuracBiomedicalResearch/shinylocuszoom/actions/workflows/check-standard.yaml/badge.svg?branch=main)
+
 
 shinylocuszoom is a package based on [htmlwidgets](https://www.htmlwidgets.org/) to integrate LocusZoom plots into a shiny app or Rmd notebook.
 
@@ -32,9 +33,12 @@ Load the package and get a JSON file
 library(shinylocuszoom)
 
 # Get a json file included in the package already formatted
-jsonfile <- system.file("data/td2t_10_114550452-115067678.json", package="shinylocuszoom")
+jsonfile <- system.file("extdata/td2t_10_114550452-115067678.json", package="shinylocuszoom")
 jsondata <- fromJSON(file=jsonfile)
 ```
+
+Alternatively you can provide a `data.frame` formatted as specified in the `R` help as input 
+of the `LocusZoomWidget` function. 
 
 Within `Rstudio` a LocusZoom plot appears in the Window panel, otherwise using standard `R` a new page in
 a web browser will pop-up with the LocusZoom plot.
