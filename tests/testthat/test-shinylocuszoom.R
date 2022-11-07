@@ -7,6 +7,7 @@ get_data <- function(x){
   return(mydata[["data"]])
 }
 
+
 process_bed <- function(x){
   # x <- "~/work/test_locus_zoom/KG_TM_38_mask_chr10_114550452-115067678.bed"
   mybed <- read.delim(x, header=FALSE, stringsAsFactors = FALSE) %>%
@@ -21,7 +22,6 @@ process_bed <- function(x){
 
 test_that("Check defined results", {
   f <- system.file("extdata/td2t_10_114550452-115067678.json", package="shinylocuszoom")
-
   mydata <- get_data(x=f)
   res <- LocusZoomWidget(
     mydata,
@@ -31,4 +31,5 @@ test_that("Check defined results", {
     genome_build = "GRCh37",
     main_title = "TD2 association")
   expect_known_hash(res, hash = "0be008578c")
+
 })
